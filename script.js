@@ -11,7 +11,7 @@ function makePageForEpisodes(episodeList) {
     let li = document.createElement("li");
     let showCode;
 
-    // Example: S02E07 would be the code for the 7th episode of the 2nd season. S2E7 would be incorrect.
+    //store correct format of show code in showCode variable
     if (episode.season >= 10 && episode.number >= 10) {
       showCode = `S${episode.season}E${episode.number}`;
     } else if (episode.season < 10 && episode.number >= 10) {

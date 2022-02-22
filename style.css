@@ -5,6 +5,7 @@
 
 #root {
   color: red;
+  background-color: #dee2e6;
 }
 
 ul {
@@ -20,14 +21,15 @@ ul {
   width: 400px;
   margin-bottom: 30px;
   border-radius: 10px;
+  background-color: white;
 }
 
 .show-title {
-  background-color: #81ecec;
-  border: 2px solid black;
-  border-radius: 5px;
+  display: flex;
   padding: 15px;
   font-weight: bold;
+  /* border-bottom: 2px solid black; */
+  font-size: 20px;
 }
 
 .show-details {
@@ -35,7 +37,7 @@ ul {
   flex-direction: column;
   align-items: center;
   padding: 15px;
-  /* background-color: coral; */
+  border-top: 2px solid black;
 }
 
 .image {
@@ -43,7 +45,9 @@ ul {
 }
 
 p {
-  text-align: center;
+  text-align: left;
+  padding: 10px 30px;
+  font-size: 15px;
 }
 
 footer {
