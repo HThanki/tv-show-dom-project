@@ -10,7 +10,7 @@
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 1) 0%,
-    rgba(0, 212, 255, 1) 100%
+    rgb(211, 212, 212) 100%
   );
 }
 
@@ -31,23 +31,22 @@ ul {
   width: 350px;
   margin-bottom: 50px;
   background-color: white;
-  /* height: 500px; */
 }
 
 .episode-title {
   padding: 15px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .episode-details {
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   align-items: center;
   padding: 15px;
   border-top: 2px solid black;
-  /* height: 500px; */
+  height: 300px;
+  overflow: scroll;
 }
 
 .image {
