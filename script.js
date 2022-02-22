@@ -9,25 +9,25 @@ function makePageForEpisodes(episodeList) {
   // loop through episode list
   episodeList.forEach((episode) => {
     let li = document.createElement("li");
-    let showCode;
+    let episodeCode;
 
-    //store correct format of show code in showCode variable
+    //store correct format of episode code in episodeCode variable
     if (episode.season >= 10 && episode.number >= 10) {
-      showCode = `S${episode.season}E${episode.number}`;
+      episodeCode = `S${episode.season}E${episode.number}`;
     } else if (episode.season < 10 && episode.number >= 10) {
-      showCode = `S0${episode.season}E${episode.number}`;
+      episodeCode = `S0${episode.season}E${episode.number}`;
     } else if (episode.season >= 10 && episode.number < 10) {
-      showCode = `S${episode.season}E0${episode.number}`;
+      episodeCode = `S${episode.season}E0${episode.number}`;
     } else if (episode.season < 10 && episode.number < 10) {
-      showCode = `S0${episode.season}E0${episode.number}`;
+      episodeCode = `S0${episode.season}E0${episode.number}`;
     }
 
-    //add show details to li
-    li.innerHTML = `<div class="show-card">
-    <div class ="show-title" > 
-    <heading>${episode.name} - ${showCode}</heading>
+    //add episode details to li
+    li.innerHTML = `<div class="episode-card">
+    <div class ="episode-title" > 
+    <heading>${episode.name} - ${episodeCode}</heading>
     </div>
-    <div class= "show-details">
+    <div class= "episode-details">
     <img class="image" src= ${episode.image.medium}>
     <p>${episode.summary}</p>
     </div>
