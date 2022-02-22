@@ -39,7 +39,7 @@ function makePageForEpisodes(episodeList) {
 
   //Create variable to store TVMaze.com details
   let footer = document.createElement("footer");
-  footer.innerHTML = `<footer>This content is from <a href="https://www.tvmaze.com/">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/82/episodes">https://api.tvmaze.com/shows/82/episodes</a></footer>`;
+  footer.innerHTML = `This content is from <a href="https://www.tvmaze.com/">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/82/episodes">https://api.tvmaze.com/shows/82/episodes</a>`;
 
   //Add unordered list and footer to page
   rootElem.append(ul);
