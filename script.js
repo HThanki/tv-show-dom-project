@@ -6,7 +6,7 @@ function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 
-  // All episodes must be shown. For each episode, AT LEAST following must be displayed:
+  // loop through episode list
   episodeList.forEach((episode) => {
     let li = document.createElement("li");
     let showCode;
@@ -22,33 +22,27 @@ function makePageForEpisodes(episodeList) {
       showCode = `S0${episode.season}E0${episode.number}`;
     }
 
-    // the episode's name
+    //add show details to li
     li.innerHTML = `<div class="show-card">
     <div class ="show-title" > 
-    <h3>${episode.name} - ${showCode}</h3>
+    <heading>${episode.name} - ${showCode}</heading>
     </div>
     <div class= "show-details">
-    <img src= ${episode.image.medium}>
+    <img class="image" src= ${episode.image.medium}>
     <p>${episode.summary}</p>
     </div>
-    </div>
-    
-    `;
-    //create div to hold image and summary
+    </div>`;
 
-    // // the episode's medium-sized image
-    // console.log(episode.image.medium);
-
-    // // the episode's summary text
-    // console.log(episode.summary);
+    //add this li to ul element
     ul.append(li);
   });
-  rootElem.append(ul);
 
-  // Your page should state somewhere that the data has (originally) come from TVMaze.com, and link back to that site (or the specific episode on that site). See tvmaze.com/api#licensing.
+  //Create variable to store TVMaze.com details
   let footer = document.createElement("footer");
+  footer.innerHTML = `<footer>This content is from <a href="https://www.tvmaze.com/">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/82/episodes">https://api.tvmaze.com/shows/82/episodes</a></footer>`;
 
-  footer.innerHTML = `<p>This content is from https://www.tvmaze.com/. specifically: https://api.tvmaze.com/shows/82/episodes</p>`;
+  //Add unordered list and footer to page
+  rootElem.append(ul);
   rootElem.append(footer);
 }
 
