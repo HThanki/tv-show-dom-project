@@ -5,14 +5,20 @@
 
 #root {
   color: black;
-  background-color: #dee2e6;
+  /* background-color: #dee2e6; */
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(0, 212, 255, 1) 100%
+  );
 }
 
 ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 20px;
   list-style: none;
   color: black;
 }
@@ -37,9 +43,11 @@ ul {
 .episode-details {
   display: flex;
   flex-direction: column;
+  /* justify-content: flex-start; */
   align-items: center;
   padding: 15px;
   border-top: 2px solid black;
+  /* height: 500px; */
 }
 
 .image {
