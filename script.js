@@ -92,5 +92,3 @@ function onSearchKeyUp(event) {
 }
 
 window.onload = setup;
-
-// Display how many episodes match the current search
