@@ -1,10 +1,19 @@
 //You can edit ALL of the code here
 
 let ul = document.createElement("ul");
+let input = document.createElement("input");
+input.autocomplete = "off";
+input.type = "search";
+input.id = "search";
+input.placeholder = "Search for an episode";
+// let totalEpisodeCount;
+// let results;
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+
+  let results = episodeList.filter;
 
   // loop through episode list
   episodeList.forEach((episode) => {
@@ -42,6 +51,7 @@ function makePageForEpisodes(episodeList) {
   footer.innerHTML = `This content is from <a href="https://www.tvmaze.com/">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/82/episodes">https://api.tvmaze.com/shows/82/episodes</a>`;
 
   //Add unordered list and footer to page
+  rootElem.append(input);
   rootElem.append(ul);
   rootElem.append(footer);
 }
@@ -52,3 +62,11 @@ function setup() {
 }
 
 window.onload = setup;
+
+// Add a "live" search input:
+// Only episodes whose summary OR name contains the search term should be displayed
+// The search should be case-insensitive
+// The display should update immediately after each keystroke changes the input.
+// Display how many episodes match the current search
+// If the search box is cleared, all episodes should be shown.
+// If you have been fetching the episode data from the API, be careful not to cause many frequent requests with this search feature. The search should look through an in-memory copy of the episode list. Do not fetch the data again each time something is typed!
