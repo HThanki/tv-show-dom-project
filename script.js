@@ -16,7 +16,6 @@ let searchCount = document.createElement("p");
 
 searchDiv.append(input);
 searchDiv.append(searchCount);
-
 rootElem.append(searchDiv);
 
 function setup() {
@@ -59,15 +58,15 @@ function makePageForEpisodes(episodeList) {
     //add this li to ul element
     ul.append(li);
   });
-
-  //Create variable to store TVMaze.com details
-  let footer = document.createElement("footer");
-  footer.innerHTML = `This content is from <a href="https://www.tvmaze.com/">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/82/episodes">https://api.tvmaze.com/shows/82/episodes</a>`;
-
-  //Add unordered list and footer to page
-  rootElem.append(ul);
-  rootElem.append(footer);
 }
+
+//Create variable to store TVMaze.com details
+let footer = document.createElement("footer");
+footer.innerHTML = `This content is from <a href="https://www.tvmaze.com/">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/82/episodes">https://api.tvmaze.com/shows/82/episodes</a>`;
+
+//Add unordered list and footer to page
+rootElem.append(ul);
+rootElem.append(footer);
 
 function onSearchKeyUp(event) {
   const searchTerm = event.target.value.toLowerCase();
