@@ -12,7 +12,7 @@ input.id = "search";
 input.placeholder = "Search for an episode";
 
 let searchCount = document.createElement("p");
-searchCount.innerText = `Displaying INSERT COUNT`;
+//searchCount.innerText = `Displaying INSERT COUNT`;
 
 searchDiv.append(input);
 searchDiv.append(searchCount);
@@ -84,9 +84,10 @@ function onSearchKeyUp(event) {
 
   const filteredCount = filteredEpisodes.length;
   const allCount = allEpisodes.length;
-  const countString = `Displaying ${filteredCount} / ${allCount}`;
+  const countString = `Displaying ${filteredCount}/${allCount} episodes`;
 
   searchCount.innerText = countString;
+  //footer.remove();
   makePageForEpisodes(filteredEpisodes);
 }
 

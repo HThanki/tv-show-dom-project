@@ -16,6 +16,7 @@
 
 .search-div {
   display: flex;
+  padding: 15px 20px;
 }
 
 .search-div input {
