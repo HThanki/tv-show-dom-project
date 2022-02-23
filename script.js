@@ -2,6 +2,9 @@
 const rootElem = document.getElementById("root");
 let ul = document.createElement("ul");
 
+let searchDiv = document.createElement("div");
+searchDiv.classList.add("search-div");
+
 let input = document.createElement("input");
 input.autocomplete = "off";
 input.type = "text";
@@ -11,8 +14,10 @@ input.placeholder = "Search for an episode";
 let searchCount = document.createElement("p");
 searchCount.innerText = `Displaying INSERT COUNT`;
 
-rootElem.append(input);
-rootElem.append(searchCount);
+searchDiv.append(input);
+searchDiv.append(searchCount);
+
+rootElem.append(searchDiv);
 
 function setup() {
   const allEpisodes = getAllEpisodes();
