@@ -5,6 +5,8 @@
 
 #root {
   color: black;
+  padding: 0.5em;
+
   /* background-color: #dee2e6; */
   background: rgb(255, 255, 255);
   background: linear-gradient(
@@ -21,6 +23,7 @@ ul {
   gap: 20px;
   list-style: none;
   color: black;
+  margin-top: 0.5em;
 }
 
 .episode-card {
