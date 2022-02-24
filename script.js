@@ -7,7 +7,6 @@ searchDiv.classList.add("search-div");
 
 let select = document.createElement("select");
 select.id = "episode-select";
-let option = document.createElement("option");
 
 let input = document.createElement("input");
 input.autocomplete = "off";
@@ -32,7 +31,7 @@ function setup() {
 }
 
 function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
+  //const rootElem = document.getElementById("root");
   ul.innerHTML = "";
 
   // loop through episode list
@@ -63,11 +62,13 @@ function makePageForEpisodes(episodeList) {
     </div>`;
 
     //add this episode to select menu
-    option.value = `${episode.name} - ${episodeCode}`;
-    option.innerText = `${episode.name} - ${episodeCode}`;
+    let newOption = new Option(
+      `${episode.name} - ${episodeCode}`,
+      `${episode.name} - ${episodeCode}`
+    );
 
     //add option to select menu
-    select.append(option);
+    select.add(newOption, undefined);
 
     //add this li to ul element
     ul.append(li);
