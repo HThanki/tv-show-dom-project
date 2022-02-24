@@ -1,5 +1,7 @@
 //You can edit ALL of the code here
 const rootElem = document.getElementById("root");
+const allEpisodes = getAllEpisodes();
+
 let ul = document.createElement("ul");
 
 let searchDiv = document.createElement("div");
@@ -14,8 +16,6 @@ input.type = "text";
 input.id = "search";
 input.placeholder = "Search for an episode";
 
-const allEpisodes = getAllEpisodes();
-
 let searchCount = document.createElement("p");
 searchCount.innerText = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
 
@@ -25,13 +25,11 @@ searchDiv.append(searchCount);
 rootElem.append(searchDiv);
 
 function setup() {
-  //const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
   input.addEventListener("keyup", onSearchKeyUp);
 }
 
 function makePageForEpisodes(episodeList) {
-  //const rootElem = document.getElementById("root");
   ul.innerHTML = "";
 
   // loop through episode list
@@ -61,17 +59,17 @@ function makePageForEpisodes(episodeList) {
     </div>
     </div>`;
 
+    //add this li to ul element
+    ul.append(li);
+
     //add this episode to select menu
     let newOption = new Option(
-      `${episode.name} - ${episodeCode}`,
-      `${episode.name} - ${episodeCode}`
+      `${episodeCode} - ${episode.name}`,
+      `${episodeCode} - ${episode.name}`
     );
 
     //add option to select menu
     select.add(newOption, undefined);
-
-    //add this li to ul element
-    ul.append(li);
   });
 }
 
@@ -85,7 +83,6 @@ rootElem.append(footer);
 
 function onSearchKeyUp(event) {
   const searchTerm = event.target.value.toLowerCase();
-  //const allEpisodes = getAllEpisodes();
 
   const filteredEpisodes = allEpisodes.filter((e) => {
     const episodeName = e.name.toLowerCase();
@@ -102,5 +99,13 @@ function onSearchKeyUp(event) {
   searchCount.innerText = countString;
   makePageForEpisodes(filteredEpisodes);
 }
+
+select.addEventListener("click", () => {
+  console.log(event.value);
+});
+
+//function onOptionMenuSelect(event) {}
+// When the user makes a selection, they should be taken directly to that episode in the list
+// Bonus: if you prefer, when the select is used, ONLY show the selected episode. If you do this, be sure to provide a way for the user to see all episodes again.
 
 window.onload = setup;
