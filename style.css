@@ -4,6 +4,9 @@
 }
 
 #root {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   color: black;
   padding: 0.5em;
   background: rgb(255, 255, 255);
@@ -16,7 +19,8 @@
 
 .search-div {
   display: flex;
-  padding: 15px 20px;
+  padding: 15px 50px;
+  margin: 0;
 }
 
 .search-div input {
