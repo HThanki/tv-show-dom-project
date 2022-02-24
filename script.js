@@ -5,6 +5,10 @@ let ul = document.createElement("ul");
 let searchDiv = document.createElement("div");
 searchDiv.classList.add("search-div");
 
+let select = document.createElement("select");
+select.id = "episode-select";
+let option = document.createElement("option");
+
 let input = document.createElement("input");
 input.autocomplete = "off";
 input.type = "text";
@@ -16,12 +20,13 @@ const allEpisodes = getAllEpisodes();
 let searchCount = document.createElement("p");
 searchCount.innerText = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
 
+searchDiv.append(select);
 searchDiv.append(input);
 searchDiv.append(searchCount);
 rootElem.append(searchDiv);
 
 function setup() {
-  const allEpisodes = getAllEpisodes();
+  //const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
   input.addEventListener("keyup", onSearchKeyUp);
 }
@@ -57,6 +62,13 @@ function makePageForEpisodes(episodeList) {
     </div>
     </div>`;
 
+    //add this episode to select menu
+    option.value = `${episode.name} - ${episodeCode}`;
+    option.innerText = `${episode.name} - ${episodeCode}`;
+
+    //add option to select menu
+    select.append(option);
+
     //add this li to ul element
     ul.append(li);
   });
@@ -72,8 +84,7 @@ rootElem.append(footer);
 
 function onSearchKeyUp(event) {
   const searchTerm = event.target.value.toLowerCase();
-  console.log(searchTerm);
-  const allEpisodes = getAllEpisodes();
+  //const allEpisodes = getAllEpisodes();
 
   const filteredEpisodes = allEpisodes.filter((e) => {
     const episodeName = e.name.toLowerCase();
