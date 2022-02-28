@@ -24,7 +24,8 @@
 }
 
 .search-div input {
-  margin: 0;
+  margin: 0px;
+  margin-right: 20px;
   padding: 0.5em;
 }
 
@@ -36,7 +37,14 @@
 }
 
 .search-div p {
+  margin: 0px;
+}
+
+button {
   margin: 0;
+  padding: 0.5em;
+  width: auto;
+  background-color: white;
 }
 
 ul {

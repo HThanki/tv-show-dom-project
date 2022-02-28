@@ -1,6 +1,7 @@
 //You can edit ALL of the code here
 const rootElem = document.getElementById("root");
 const allEpisodes = getAllEpisodes();
+const allCount = allEpisodes.length;
 
 let ul = document.createElement("ul");
 
@@ -19,14 +20,30 @@ input.placeholder = "Search for an episode";
 let searchCount = document.createElement("p");
 searchCount.innerText = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
 
+let button = document.createElement("button");
+button.innerText = "Reset episodes";
+
+button.addEventListener("click", setup);
+
 searchDiv.append(select);
 searchDiv.append(input);
+searchDiv.append(button);
 searchDiv.append(searchCount);
 rootElem.append(searchDiv);
+
+//Create variable to store TVMaze.com details
+let footer = document.createElement("footer");
+footer.innerHTML = `This content is from <a href="https://www.tvmaze.com/">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/82/episodes">https://api.tvmaze.com/shows/82/episodes</a>`;
+
+//Add unordered list and footer to page
+rootElem.append(ul);
+rootElem.append(footer);
 
 function setup() {
   makePageForEpisodes(allEpisodes);
   input.addEventListener("keyup", onSearchKeyUp);
+  input.value = "";
+  displayEpisodeCount(allEpisodes);
 }
 
 function makePageForEpisodes(episodeList) {
@@ -62,24 +79,19 @@ function makePageForEpisodes(episodeList) {
     //add this li to ul element
     ul.append(li);
 
-    //add this episode to select menu
-    let newOption = new Option(
-      `${episodeCode} - ${episode.name}`,
-      `${episodeCode} - ${episode.name}`
-    );
+    //if list of episodes is greater than 1 i.e. function ran with full list of objects, add this episode to select menu and add option to select menu
+    if (episodeList.length > 1) {
+      //add this episode to select menu
+      let newOption = new Option(
+        `${episodeCode} - ${episode.name}`,
+        `${episodeCode} - ${episode.name}`
+      );
 
-    //add option to select menu
-    select.add(newOption, undefined);
+      //add option to select menu
+      select.add(newOption, undefined);
+    }
   });
 }
-
-//Create variable to store TVMaze.com details
-let footer = document.createElement("footer");
-footer.innerHTML = `This content is from <a href="https://www.tvmaze.com/">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/82/episodes">https://api.tvmaze.com/shows/82/episodes</a>`;
-
-//Add unordered list and footer to page
-rootElem.append(ul);
-rootElem.append(footer);
 
 function onSearchKeyUp(event) {
   const searchTerm = event.target.value.toLowerCase();
@@ -92,30 +104,24 @@ function onSearchKeyUp(event) {
     );
   });
 
-  const filteredCount = filteredEpisodes.length;
-  const allCount = allEpisodes.length;
+  displayEpisodeCount(filteredEpisodes);
+}
+
+function displayEpisodeCount(episodesToDisplay) {
+  const filteredCount = episodesToDisplay.length;
   const countString = `Displaying ${filteredCount}/${allCount} episodes`;
 
   searchCount.innerText = countString;
-  makePageForEpisodes(filteredEpisodes);
+  makePageForEpisodes(episodesToDisplay);
 }
 
 select.addEventListener("change", (e) => {
-  let episodeSelection = e.target.value.slice(9).toLowerCase();
-  console.log(episodeSelection);
-
   const searchTerm = e.target.value.slice(9);
-
-  const filteredEpisodes = allEpisodes.filter(
-    (episode) => episode.name == searchTerm
+  const selectedEpisode = allEpisodes.filter(
+    (episode) => episode.name === searchTerm
   );
 
-  const filteredCount = filteredEpisodes.length;
-  const allCount = allEpisodes.length;
-  const countString = `Displaying ${filteredCount}/${allCount} episodes`;
-
-  searchCount.innerText = countString;
-  makePageForEpisodes(filteredEpisodes);
+  displayEpisodeCount(selectedEpisode);
 });
 
 window.onload = setup;
