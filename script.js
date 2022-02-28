@@ -100,12 +100,22 @@ function onSearchKeyUp(event) {
   makePageForEpisodes(filteredEpisodes);
 }
 
-select.addEventListener("click", () => {
-  console.log(event.value);
-});
+select.addEventListener("change", (e) => {
+  let episodeSelection = e.target.value.slice(9).toLowerCase();
+  console.log(episodeSelection);
 
-//function onOptionMenuSelect(event) {}
-// When the user makes a selection, they should be taken directly to that episode in the list
-// Bonus: if you prefer, when the select is used, ONLY show the selected episode. If you do this, be sure to provide a way for the user to see all episodes again.
+  const searchTerm = e.target.value.slice(9);
+
+  const filteredEpisodes = allEpisodes.filter(
+    (episode) => episode.name == searchTerm
+  );
+
+  const filteredCount = filteredEpisodes.length;
+  const allCount = allEpisodes.length;
+  const countString = `Displaying ${filteredCount}/${allCount} episodes`;
+
+  searchCount.innerText = countString;
+  makePageForEpisodes(filteredEpisodes);
+});
 
 window.onload = setup;
