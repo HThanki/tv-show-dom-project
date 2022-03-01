@@ -21,7 +21,7 @@ let searchCount = document.createElement("p");
 searchCount.innerText = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
 
 let button = document.createElement("button");
-button.innerText = "Reset episodes";
+button.innerText = "All episodes";
 
 button.addEventListener("click", setup);
 
