@@ -1,29 +1,10 @@
-// When your page loads, it must load the episodes (for the SAME show) from TVMaze API, using fetch, NOT from the provided getAllEpisodes function. (See below for the API "endpoint" (URL) to fetch.)
-// Your page MUST NOT re-fetch the episodes every time the user types a character into your search field!
-
-let newArray = [];
-
-let apiEpisodes = fetch("https://api.tvmaze.com/shows/82/episodes")
-  .then((response) => response.json())
-  .then((data) => {
-    newArray.push(data);
-    //console.log(data);
-  })
-  .catch((e) => console.log(e));
-
-console.log(newArray);
-
-//console.log(apiEpisodes);
-
-// Loading a different show - just for fun
-// https://api.tvmaze.com/shows/82/episodes - Game Of Thrones
-// https://api.tvmaze.com/shows/582/episodes - Fresh Prince
-
 //You can edit ALL of the code here
 const rootElem = document.getElementById("root");
-const allEpisodes = getAllEpisodes();
+//const allEpisodes = getAllEpisodes();
 
-const allCount = allEpisodes.length;
+let currentEpisodes = [];
+
+let allCount = 0;
 
 let ul = document.createElement("ul");
 
@@ -40,7 +21,7 @@ input.id = "search";
 input.placeholder = "Search for an episode";
 
 let searchCount = document.createElement("p");
-searchCount.innerText = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
+searchCount.innerText = `Displaying ${currentEpisodes.length}/${currentEpisodes.length} episodes`;
 
 let button = document.createElement("button");
 button.innerText = "All episodes";
@@ -62,10 +43,25 @@ rootElem.append(ul);
 rootElem.append(footer);
 
 function setup() {
-  makePageForEpisodes(allEpisodes);
+  sendRequest(82).then((data) => {
+    currentEpisodes = data;
+    allCount = currentEpisodes.length;
+    makePageForEpisodes(currentEpisodes);
+  });
   input.addEventListener("keyup", onSearchKeyUp);
   input.value = "";
-  displayEpisodeCount(allEpisodes);
+  displayEpisodeCount(currentEpisodes);
+}
+
+function sendRequest(showId) {
+  const urlForTheRequest = `https://api.tvmaze.com/shows/${showId}/episodes`;
+
+  return fetch(urlForTheRequest)
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((e) => console.log(e));
 }
 
 function makePageForEpisodes(episodeList) {
@@ -118,7 +114,7 @@ function makePageForEpisodes(episodeList) {
 function onSearchKeyUp(event) {
   const searchTerm = event.target.value.toLowerCase();
 
-  const filteredEpisodes = allEpisodes.filter((e) => {
+  const filteredEpisodes = currentEpisodes.filter((e) => {
     const episodeName = e.name.toLowerCase();
     const episodeSummary = e.summary.toLowerCase();
     return (
@@ -139,7 +135,7 @@ function displayEpisodeCount(episodesToDisplay) {
 
 select.addEventListener("change", (e) => {
   const searchTerm = e.target.value.slice(9);
-  const selectedEpisode = allEpisodes.filter(
+  const selectedEpisode = currentEpisodes.filter(
     (episode) => episode.name === searchTerm
   );
 
