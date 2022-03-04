@@ -1,11 +1,17 @@
 // When your page loads, it must load the episodes (for the SAME show) from TVMaze API, using fetch, NOT from the provided getAllEpisodes function. (See below for the API "endpoint" (URL) to fetch.)
 // Your page MUST NOT re-fetch the episodes every time the user types a character into your search field!
 
+let newArray = [];
+
 let apiEpisodes = fetch("https://api.tvmaze.com/shows/82/episodes")
   .then((response) => response.json())
   .then((data) => {
-    return data;
-  });
+    newArray.push(data);
+    //console.log(data);
+  })
+  .catch((e) => console.log(e));
+
+console.log(newArray);
 
 //console.log(apiEpisodes);
 
