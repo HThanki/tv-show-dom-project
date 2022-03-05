@@ -1,10 +1,8 @@
 //You can edit ALL of the code here
 const rootElem = document.getElementById("root");
-//const allEpisodes = getAllEpisodes();
 
 let currentEpisodes = [];
-
-let allCount = 0;
+let currentCount = 0;
 
 let ul = document.createElement("ul");
 
@@ -21,7 +19,6 @@ input.id = "search";
 input.placeholder = "Search for an episode";
 
 let searchCount = document.createElement("p");
-searchCount.innerText = `Displaying ${currentEpisodes.length}/${currentEpisodes.length} episodes`;
 
 let button = document.createElement("button");
 button.innerText = "All episodes";
@@ -45,12 +42,12 @@ rootElem.append(footer);
 function setup() {
   sendRequest(82).then((data) => {
     currentEpisodes = data;
-    allCount = currentEpisodes.length;
+    currentCount = currentEpisodes.length;
     makePageForEpisodes(currentEpisodes);
+    displayEpisodeCount(currentEpisodes);
   });
   input.addEventListener("keyup", onSearchKeyUp);
   input.value = "";
-  displayEpisodeCount(currentEpisodes);
 }
 
 function sendRequest(showId) {
@@ -127,7 +124,7 @@ function onSearchKeyUp(event) {
 
 function displayEpisodeCount(episodesToDisplay) {
   const filteredCount = episodesToDisplay.length;
-  const countString = `Displaying ${filteredCount}/${allCount} episodes`;
+  const countString = `Displaying ${filteredCount}/${currentCount} episodes`;
 
   searchCount.innerText = countString;
   makePageForEpisodes(episodesToDisplay);
