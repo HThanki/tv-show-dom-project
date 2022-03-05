@@ -125,7 +125,6 @@ function onSearchKeyUp(event) {
 function displayEpisodeCount(episodesToDisplay) {
   const filteredCount = episodesToDisplay.length;
   const countString = `Displaying ${filteredCount}/${currentCount} episodes`;
-
   searchCount.innerText = countString;
   makePageForEpisodes(episodesToDisplay);
 }
@@ -135,7 +134,6 @@ select.addEventListener("change", (e) => {
   const selectedEpisode = currentEpisodes.filter(
     (episode) => episode.name === searchTerm
   );
-
   displayEpisodeCount(selectedEpisode);
 });
 
