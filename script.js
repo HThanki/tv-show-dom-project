@@ -12,8 +12,7 @@ searchDiv.classList.add("search-div");
 let showSelect = document.createElement("select");
 showSelect.id = "show-select";
 const AllShows = getAllShows();
-
-let shows = [];
+let showId = 82;
 
 let select = document.createElement("select");
 select.id = "episode-select";
@@ -48,7 +47,7 @@ rootElem.append(footer);
 
 function setup() {
   populateShowSelector(AllShows);
-  sendRequest(82).then((data) => {
+  sendRequest(showId).then((data) => {
     currentEpisodes = data;
     currentCount = currentEpisodes.length;
     makePageForEpisodes(currentEpisodes);
@@ -61,6 +60,7 @@ function setup() {
 function sendRequest(showId) {
   const urlForTheRequest = `https://api.tvmaze.com/shows/${showId}/episodes`;
 
+  console.log(urlForTheRequest);
   return fetch(urlForTheRequest)
     .then((response) => response.json())
     .then((data) => {
@@ -147,12 +147,21 @@ select.addEventListener("change", (e) => {
 
 function populateShowSelector(AllShows) {
   AllShows.forEach((show) => {
-    //add this episode to select menu
+    //add this show to select menu
     let newOption = new Option(`${show.name}`, `${show.id}`);
 
     //add option to show select menu
     showSelect.add(newOption, undefined);
   });
-}
 
+  showSelect.addEventListener("change", (e) => {
+    showId = e.target.value;
+    sendRequest(showId).then((data) => {
+      currentEpisodes = data;
+      currentCount = currentEpisodes.length;
+      makePageForEpisodes(currentEpisodes);
+      displayEpisodeCount(currentEpisodes);
+    });
+  });
+}
 window.onload = setup;
