@@ -9,6 +9,12 @@ let ul = document.createElement("ul");
 let searchDiv = document.createElement("div");
 searchDiv.classList.add("search-div");
 
+let showSelect = document.createElement("select");
+showSelect.id = "show-select";
+const AllShows = getAllShows();
+
+let shows = [];
+
 let select = document.createElement("select");
 select.id = "episode-select";
 
@@ -25,6 +31,7 @@ button.innerText = "All episodes";
 
 button.addEventListener("click", setup);
 
+searchDiv.append(showSelect);
 searchDiv.append(select);
 searchDiv.append(input);
 searchDiv.append(button);
@@ -40,6 +47,7 @@ rootElem.append(ul);
 rootElem.append(footer);
 
 function setup() {
+  populateShowSelector(AllShows);
   sendRequest(82).then((data) => {
     currentEpisodes = data;
     currentCount = currentEpisodes.length;
@@ -136,5 +144,15 @@ select.addEventListener("change", (e) => {
   );
   displayEpisodeCount(selectedEpisode);
 });
+
+function populateShowSelector(AllShows) {
+  AllShows.forEach((show) => {
+    //add this episode to select menu
+    let newOption = new Option(`${show.name}`, `${show.id}`);
+
+    //add option to show select menu
+    showSelect.add(newOption, undefined);
+  });
+}
 
 window.onload = setup;

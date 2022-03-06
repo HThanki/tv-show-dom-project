@@ -32,7 +32,8 @@
   padding: 0.5em;
 }
 
-#episode-select {
+#episode-select,
+#show-select {
   margin: 0;
   margin-right: 20px;
   padding: 0.5em;
