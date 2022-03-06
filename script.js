@@ -155,6 +155,8 @@ function populateShowSelector(AllShows) {
   });
 
   showSelect.addEventListener("change", (e) => {
+    select.innerHTML = "";
+
     showId = e.target.value;
     sendRequest(showId).then((data) => {
       currentEpisodes = data;
