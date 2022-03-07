@@ -1,4 +1,3 @@
-//You can edit ALL of the code here
 const rootElem = document.getElementById("root");
 
 let currentEpisodes = [];
@@ -11,6 +10,7 @@ searchDiv.classList.add("search-div");
 
 let showSelect = document.createElement("select");
 showSelect.id = "show-select";
+
 const AllShows = getAllShows();
 
 AllShows.sort(function (a, b) {
