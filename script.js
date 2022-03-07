@@ -12,7 +12,14 @@ searchDiv.classList.add("search-div");
 let showSelect = document.createElement("select");
 showSelect.id = "show-select";
 const AllShows = getAllShows();
-let showId = 82;
+
+AllShows.sort(function (a, b) {
+  if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+  if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+  return 0;
+});
+
+let showId = AllShows[0].name;
 
 let select = document.createElement("select");
 select.id = "episode-select";
