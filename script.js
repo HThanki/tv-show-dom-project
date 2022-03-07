@@ -60,7 +60,6 @@ function setup() {
 function sendRequest(showId) {
   const urlForTheRequest = `https://api.tvmaze.com/shows/${showId}/episodes`;
 
-  console.log(urlForTheRequest);
   return fetch(urlForTheRequest)
     .then((response) => response.json())
     .then((data) => {
@@ -91,7 +90,7 @@ function makePageForEpisodes(episodeList) {
     //add episode details to li
     li.innerHTML = `<div class="episode-card">
     <div class ="episode-title" > 
-    <heading>${episode.name} - ${episodeCode}</heading>
+    <heading>${episodeCode} - ${episode.name}</heading>
     </div>
     <div class= "episode-details">
     <img class="image" src= ${episode.image.medium}>
