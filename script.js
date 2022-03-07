@@ -94,16 +94,28 @@ function makePageForEpisodes(episodeList) {
       episodeCode = `S0${episode.season}E0${episode.number}`;
     }
 
-    //add episode details to li
-    li.innerHTML = `<div class="episode-card">
-    <div class ="episode-title" > 
-    <heading>${episodeCode} - ${episode.name}</heading>
-    </div>
-    <div class= "episode-details">
-    <img class="image" src= ${episode.image.medium}>
-    <p>${episode.summary}</p>
-    </div>
-    </div>`;
+    if (episode["image"]) {
+      //add episode details to li including image if show has images in object
+      li.innerHTML = `<div class="episode-card">
+      <div class ="episode-title" >
+        <heading>${episodeCode} - ${episode.name}</heading>
+      </div>
+      <div class= "episode-details">
+        <img class="image" src= ${episode.image.medium}>
+        <p>${episode.summary}</p>
+      </div>
+      </div>`;
+    } else {
+      //add episode details to li without image
+      li.innerHTML = `<div class="episode-card">
+      <div class ="episode-title" >
+        <heading>${episodeCode} - ${episode.name}</heading>
+      </div>
+      <div class= "episode-details">
+        <p>${episode.summary}</p>
+      </div>
+      </div>`;
+    }
 
     //add this li to ul element
     ul.append(li);
