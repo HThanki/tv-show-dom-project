@@ -19,7 +19,7 @@ AllShows.sort(function (a, b) {
   return 0;
 });
 
-let showId = AllShows[0].name;
+let showId = AllShows[0].id;
 
 let select = document.createElement("select");
 select.id = "episode-select";
