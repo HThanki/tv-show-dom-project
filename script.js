@@ -44,9 +44,14 @@ searchDiv.append(button);
 searchDiv.append(searchCount);
 rootElem.append(searchDiv);
 
-//Create variable to store TVMaze.com details
 let footer = document.createElement("footer");
-footer.innerHTML = `This content is from <a href="https://www.tvmaze.com/">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/82/episodes">https://api.tvmaze.com/shows/82/episodes</a>`;
+
+function updateFooter(showId) {
+  footer.innerHTML = `This content is from <a href="https://www.tvmaze.com/" target="_blank">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/${showId}/episodes" target="_blank">https://api.tvmaze.com/shows/${showId}/episodes</a>`;
+}
+
+//Create variable to store TVMaze.com details
+footer.innerHTML = `This content is from <a href="https://www.tvmaze.com/" target="_blank">https://www.tvmaze.com/</a>. specifically: <a href="https://api.tvmaze.com/shows/${showId}/episodes" target="_blank">https://api.tvmaze.com/shows/${showId}/episodes</a>`;
 
 //Add unordered list and footer to page
 rootElem.append(ul);
@@ -54,6 +59,7 @@ rootElem.append(footer);
 
 function setup() {
   populateShowSelector(AllShows);
+  //displayShowListings(AllShows);
   sendRequest(showId).then((data) => {
     currentEpisodes = data;
     currentCount = currentEpisodes.length;
@@ -74,6 +80,18 @@ function sendRequest(showId) {
     })
     .catch((e) => console.log(e));
 }
+
+// function displayShowListings(AllShows) {
+//   let showDiv = document.createElement("div");
+//   AllShows.forEach((show) => {
+//     let li = document.createElement("li");
+//     li.innerText = show.name;
+//     //add this li to ul element
+//     ul.append(li);
+//   });
+//   showDiv.append(ul);
+//   rootElem.append(showDiv);
+// }
 
 function makePageForEpisodes(episodeList) {
   ul.innerHTML = "";
@@ -132,6 +150,7 @@ function makePageForEpisodes(episodeList) {
       select.add(newOption, undefined);
     }
   });
+  updateFooter(showId);
 }
 
 function onSearchKeyUp(event) {
