@@ -144,7 +144,7 @@ function makePageForEpisodes(episodeList) {
     if (episode["image"]) {
       imageInfo = `<img class="image" src= ${episode.image.medium}>`;
     } else {
-      imageInfo = noInfo;
+      imageInfo = `<img class="image" src= ./no-picture.png>`;
     }
 
     if (episode["summary"]) {
