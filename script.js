@@ -32,18 +32,22 @@ input.placeholder = "Search for an episode";
 
 let searchCount = document.createElement("p");
 
-let button = document.createElement("button");
-button.innerText = "All episodes";
+let episodesButton = document.createElement("button");
+episodesButton.innerText = "All episodes";
 
-button.addEventListener("click", setup);
+let showsButton = document.createElement("button");
+showsButton.innerText = "All shows";
+
+episodesButton.addEventListener("click", setup);
 
 let showListDiv = document.createElement("div");
 showListDiv.classList.add("show-list");
 
 searchDiv.append(showSelect);
+searchDiv.append(showsButton);
 searchDiv.append(select);
 searchDiv.append(input);
-searchDiv.append(button);
+searchDiv.append(episodesButton);
 searchDiv.append(searchCount);
 rootElem.append(searchDiv);
 rootElem.append(showListDiv);
@@ -86,14 +90,14 @@ function sendRequest(showId) {
 }
 
 function makePageForShows(shows) {
-  //  loop through shows list
+  //  loop through shows list and display show details
   shows.forEach((show) => {
     let showElement = document.createElement("div");
-    console.log(show);
+
     showElement.innerHTML = `<div class= "show-heading">
-    ${show.name}</div>
+    <a href="#">${show.name}</a></div>
     <div class= "show-details">
-    <div class= "show-image"><img src= ${show.image.medium}></div>
+    <div class= "show-image"><img src=></div>
     <div class= "show-summary">${show.summary}</div>
     </div>
     <div class= "show-sidebar">
@@ -103,6 +107,16 @@ function makePageForShows(shows) {
     <p>Runtime: ${show.runtime}</p>
     </div>
     `;
+    showElement.addEventListener("click", () => {
+      const showId = show.id;
+      sendRequest(showId).then((data) => {
+        currentEpisodes = data;
+        currentCount = currentEpisodes.length;
+        showListDiv.style.display = "none";
+        makePageForEpisodes(currentEpisodes);
+        displayEpisodeCount(currentEpisodes);
+      });
+    });
 
     showListDiv.append(showElement);
   });
@@ -128,7 +142,6 @@ function makePageForEpisodes(episodeList) {
       episodeCode = `S0${episode.season}E0${episode.number}`;
     }
 
-    let noInfo = `<p>No Information Available</p>`;
     let imageInfo = "";
     let summaryInfo = "";
 
