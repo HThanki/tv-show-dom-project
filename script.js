@@ -11,15 +11,15 @@ searchDiv.classList.add("search-div");
 let showSelect = document.createElement("select");
 showSelect.id = "show-select";
 
-const AllShows = getAllShows();
+const allShows = getAllShows();
 
-AllShows.sort(function (a, b) {
+allShows.sort(function (a, b) {
   if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
   if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
   return 0;
 });
 
-let showId = AllShows[0].id;
+let showId = allShows[0].id;
 
 let select = document.createElement("select");
 select.id = "episode-select";
@@ -36,6 +36,9 @@ let button = document.createElement("button");
 button.innerText = "All episodes";
 
 button.addEventListener("click", setup);
+
+let showListDiv = document.createElement("div");
+showListDiv.classList.add("show-list");
 
 searchDiv.append(showSelect);
 searchDiv.append(select);
@@ -58,8 +61,8 @@ rootElem.append(ul);
 rootElem.append(footer);
 
 function setup() {
-  populateShowSelector(AllShows);
-  //displayShowListings(AllShows);
+  populateShowSelector(allShows);
+  makePageForShows(allShows);
   sendRequest(showId).then((data) => {
     currentEpisodes = data;
     currentCount = currentEpisodes.length;
@@ -81,17 +84,38 @@ function sendRequest(showId) {
     .catch((e) => console.log(e));
 }
 
-// function displayShowListings(AllShows) {
-//   let showDiv = document.createElement("div");
-//   AllShows.forEach((show) => {
-//     let li = document.createElement("li");
-//     li.innerText = show.name;
-//     //add this li to ul element
-//     ul.append(li);
-//   });
-//   showDiv.append(ul);
-//   rootElem.append(showDiv);
-// }
+function makePageForShows(shows) {
+  console.log(shows);
+
+  // loop through episode list
+  //shows.forEach((show) => {
+  // let shows = document.createElement("div");
+
+  // if (episode["image"]) {
+  //   //add episode details to li including image if show has images in object
+  //   li.innerHTML = `<div class="episode-card">
+  //   <div class ="episode-title" >
+  //     <heading>${episodeCode} - ${episode.name}</heading>
+  //   </div>
+  //   <div class= "episode-details">
+  //     <img class="image" src= ${episode.image.medium}>
+  //     <p>${episode.summary}</p>
+  //   </div>
+  //   </div>`;
+  // } else {
+  //   //add episode details to li without image
+  //   li.innerHTML = `<div class="episode-card">
+  //   <div class ="episode-title" >
+  //     <heading>${episodeCode} - ${episode.name}</heading>
+  //   </div>
+  //   <div class= "episode-details">
+  //     <p>${episode.summary}</p>
+  //   </div>
+  //   </div>`;
+  // }
+
+  return shows;
+}
 
 function makePageForEpisodes(episodeList) {
   ul.innerHTML = "";
@@ -112,28 +136,33 @@ function makePageForEpisodes(episodeList) {
       episodeCode = `S0${episode.season}E0${episode.number}`;
     }
 
+    console.log(episode);
+    let noInfo = `<p>No Information Available</p>`;
+    let imageInfo = "";
+    let summaryInfo = "";
+
     if (episode["image"]) {
-      //add episode details to li including image if show has images in object
-      li.innerHTML = `<div class="episode-card">
-      <div class ="episode-title" >
-        <heading>${episodeCode} - ${episode.name}</heading>
-      </div>
-      <div class= "episode-details">
-        <img class="image" src= ${episode.image.medium}>
-        <p>${episode.summary}</p>
-      </div>
-      </div>`;
+      imageInfo = `<img class="image" src= ${episode.image.medium}>`;
     } else {
-      //add episode details to li without image
-      li.innerHTML = `<div class="episode-card">
+      imageInfo = noInfo;
+    }
+
+    if (episode["summary"]) {
+      summaryInfo = `<p font-weight="normal">${episode.summary}</p>`;
+    } else {
+      summaryInfo = noInfo;
+    }
+
+    //add episode details to li including image if show has images in object
+    li.innerHTML = `<div class="episode-card">
       <div class ="episode-title" >
         <heading>${episodeCode} - ${episode.name}</heading>
       </div>
       <div class= "episode-details">
-        <p>${episode.summary}</p>
+        ${imageInfo}
+        ${summaryInfo}
       </div>
       </div>`;
-    }
 
     //add this li to ul element
     ul.append(li);
@@ -182,8 +211,8 @@ select.addEventListener("change", (e) => {
   displayEpisodeCount(selectedEpisode);
 });
 
-function populateShowSelector(AllShows) {
-  AllShows.forEach((show) => {
+function populateShowSelector(allShows) {
+  allShows.forEach((show) => {
     //add this show to select menu
     let newOption = new Option(`${show.name}`, `${show.id}`);
 
