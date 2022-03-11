@@ -46,6 +46,7 @@ searchDiv.append(input);
 searchDiv.append(button);
 searchDiv.append(searchCount);
 rootElem.append(searchDiv);
+rootElem.append(showListDiv);
 
 let footer = document.createElement("footer");
 
@@ -85,35 +86,26 @@ function sendRequest(showId) {
 }
 
 function makePageForShows(shows) {
-  console.log(shows);
+  //  loop through shows list
+  shows.forEach((show) => {
+    let showElement = document.createElement("div");
+    console.log(show);
+    showElement.innerHTML = `<div class= "show-heading">
+    ${show.name}</div>
+    <div class= "show-details">
+    <div class= "show-image"><img src= ${show.image.medium}></div>
+    <div class= "show-summary">${show.summary}</div>
+    </div>
+    <div class= "show-sidebar">
+    <p>Rated: ${show.rating.average}</p>
+    <p>Genres: ${show.genre}</p>
+    <p>Status: ${show.status}</p>
+    <p>Runtime: ${show.runtime}</p>
+    </div>
+    `;
 
-  // loop through episode list
-  //shows.forEach((show) => {
-  // let shows = document.createElement("div");
-
-  // if (episode["image"]) {
-  //   //add episode details to li including image if show has images in object
-  //   li.innerHTML = `<div class="episode-card">
-  //   <div class ="episode-title" >
-  //     <heading>${episodeCode} - ${episode.name}</heading>
-  //   </div>
-  //   <div class= "episode-details">
-  //     <img class="image" src= ${episode.image.medium}>
-  //     <p>${episode.summary}</p>
-  //   </div>
-  //   </div>`;
-  // } else {
-  //   //add episode details to li without image
-  //   li.innerHTML = `<div class="episode-card">
-  //   <div class ="episode-title" >
-  //     <heading>${episodeCode} - ${episode.name}</heading>
-  //   </div>
-  //   <div class= "episode-details">
-  //     <p>${episode.summary}</p>
-  //   </div>
-  //   </div>`;
-  // }
-
+    showListDiv.append(showElement);
+  });
   return shows;
 }
 
@@ -136,7 +128,6 @@ function makePageForEpisodes(episodeList) {
       episodeCode = `S0${episode.season}E0${episode.number}`;
     }
 
-    console.log(episode);
     let noInfo = `<p>No Information Available</p>`;
     let imageInfo = "";
     let summaryInfo = "";
