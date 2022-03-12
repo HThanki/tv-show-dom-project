@@ -4,6 +4,7 @@ let currentEpisodes = [];
 let currentCount = 0;
 
 let ul = document.createElement("ul");
+//ul.style.display = "none";
 
 let searchDiv = document.createElement("div");
 searchDiv.classList.add("search-div");
@@ -39,6 +40,7 @@ let showsButton = document.createElement("button");
 showsButton.innerText = "All shows";
 
 episodesButton.addEventListener("click", setup);
+//showsButton.addEventListener("click", makePageForShows);
 
 let showListDiv = document.createElement("div");
 showListDiv.classList.add("show-list");
@@ -68,6 +70,7 @@ rootElem.append(footer);
 function setup() {
   populateShowSelector(allShows);
   makePageForShows(allShows);
+
   sendRequest(showId).then((data) => {
     currentEpisodes = data;
     currentCount = currentEpisodes.length;
@@ -113,6 +116,7 @@ function makePageForShows(shows) {
         currentEpisodes = data;
         currentCount = currentEpisodes.length;
         showListDiv.style.display = "none";
+
         makePageForEpisodes(currentEpisodes);
         displayEpisodeCount(currentEpisodes);
       });
@@ -124,6 +128,8 @@ function makePageForShows(shows) {
 }
 
 function makePageForEpisodes(episodeList) {
+  //ul.style.display = "";
+
   ul.innerHTML = "";
 
   // loop through episode list
